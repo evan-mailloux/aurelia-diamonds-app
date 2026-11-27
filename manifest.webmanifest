@@ -1,0 +1,24 @@
+{
+  "name": "Aurélia Diamonds",
+  "short_name": "Aurélia",
+  "description": "Certified gold and diamond jewellery. Shop, create your ring, try it on and book a private jeweller.",
+  "id": "./",
+  "start_url": "./?source=app",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#16110D",
+  "theme_color": "#16110D",
+  "lang": "en",
+  "categories": ["shopping", "lifestyle"],
+  "icons": [
+    {"src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any"},
+    {"src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any"},
+    {"src": "icons/maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable"}
+  ],
+  "shortcuts": [
+    {"name": "Shop", "url": "./?source=app#shop", "icons": [{"src": "icons/icon-192.png", "sizes": "192x192"}]},
+    {"name": "Create your ring", "url": "./?source=app#create", "icons": [{"src": "icons/icon-192.png", "sizes": "192x192"}]},
+    {"name": "Book a jeweller", "url": "./?source=app#book", "icons": [{"src": "icons/icon-192.png", "sizes": "192x192"}]}
+  ]
+}

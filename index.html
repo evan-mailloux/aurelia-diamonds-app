@@ -1,0 +1,900 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#16110D">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Aurélia">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/favicon.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<title>Aurélia Diamonds</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400;6..96,500;6..96,600&family=Jost:wght@400;500;600&display=swap">
+<style>
+/*
+VOICE: quiet luxury, a jeweller speaking softly.
+IDEA: a jeweller's boutique you can walk through, from window to private salon.
+PICTURE: real jewellery photography framed in arched, rounded cases.
+COLOUR and TYPE: ivory and night brown, gold as the one accent. Bodoni Moda and Jost.
+LAYOUT: full width bands alternating ivory and night, shop grid at the centre.
+*/
+:root{
+  --ivory:#F7F2E8;--ivory-2:#EFE6D2;--night:#16110D;--night-2:#221A13;
+  --gold:#B8923A;--gold-l:#E6CB86;--ink:#1B1611;--muted:#6F675A;--line:#D9CDB3;--card:#FFFDF8;
+  --serif:"Bodoni Moda","Didot","Bodoni 72",Georgia,serif;
+  --sans:"Jost","Avenir Next","Helvetica Neue",Arial,sans-serif;
+  color-scheme:light dark;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]){--ivory:#1A1510;--ivory-2:#241D15;--ink:#F2EBDD;--muted:#B4AA97;--line:#3B3023;--card:#211A13}}
+:root[data-theme=dark]{color-scheme:dark;--ivory:#1A1510;--ivory-2:#241D15;--ink:#F2EBDD;--muted:#B4AA97;--line:#3B3023;--card:#211A13}
+:root[data-theme=light]{color-scheme:light}
+*{box-sizing:border-box;margin:0;padding:0;min-width:0}
+html{scroll-behavior:smooth;scroll-padding-top:80px}
+body{font-family:var(--sans);background:var(--ivory);color:var(--ink);line-height:1.6;font-size:16px;overflow-x:clip}
+body.lock{overflow:hidden}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+input,select,textarea{font:inherit;font-size:16px}
+img{display:block;max-width:100%}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+
+/* header */
+header{position:fixed;top:0;left:0;right:0;z-index:20;padding-top:env(safe-area-inset-top);background:rgba(22,17,13,.9);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid #2d2318}
+nav{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:12px 0}
+.brand{display:flex;align-items:center;gap:12px;font-family:var(--serif);font-size:22px;color:#fff;white-space:nowrap}
+.brand svg{width:30px;height:30px;flex:none}
+.links{display:flex;gap:26px;list-style:none;font-size:14px;color:#E9E0CC}
+.links a:hover{color:var(--gold-l)}
+.tools{display:flex;align-items:center;gap:4px}
+.ib{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;color:#E9E0CC;position:relative}
+.ib:hover{background:rgba(230,203,134,.12);color:var(--gold-l)}
+.ib svg{width:21px;height:21px;fill:none;stroke:currentColor;stroke-width:1.6}
+.count{position:absolute;top:5px;right:4px;min-width:18px;height:18px;border-radius:9px;background:var(--gold-l);color:#1B1611;font-size:11px;font-weight:600;display:grid;place-items:center;padding:0 4px}
+.count:empty{display:none}
+.burger{display:none}
+@media(max-width:900px){
+  .links{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;gap:0;background:var(--night);padding:8px 24px 16px;border-bottom:1px solid #2d2318}
+  .links.open{display:flex}.links a{display:block;padding:12px 0;border-bottom:1px solid #2d2318}
+  .burger{display:grid}
+}
+@media(max-width:420px){.brand span{display:none}}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:999px;padding:12px 24px;min-height:46px;font-size:14px;font-weight:600;cursor:pointer;border:1px solid var(--gold);transition:background .2s,color .2s;text-align:center}
+.btn-gold{background:var(--gold-l);color:#1B1611;border-color:var(--gold-l)}
+.btn-gold:hover{background:#fff}
+.btn-line{color:var(--gold-l);background:transparent}
+.btn-line:hover{background:rgba(230,203,134,.12)}
+.btn-ink{color:var(--ink);border-color:var(--line);background:transparent}
+.btn-ink:hover{border-color:var(--gold)}
+.btn-dark{background:var(--night);color:#fff;border-color:var(--night)}
+.btn-dark:hover{background:#3a2c1a}
+.btn[disabled]{opacity:.45;cursor:not-allowed}
+.full{width:100%}
+
+/* hero */
+.hero{background:radial-gradient(ellipse at 72% 45%,#3a2c1a 0,var(--night) 62%);color:#fff;padding:130px 0 80px;overflow:hidden}
+.hero .wrap{display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center}
+.hero h1{font-family:var(--serif);font-weight:500;font-size:clamp(38px,5.4vw,66px);line-height:1.05;text-wrap:balance}
+.hero p{margin:22px 0 32px;max-width:46ch;color:#D9CFBA;font-size:18px}
+.cta{display:flex;gap:14px;flex-wrap:wrap}
+.arch{border-radius:260px 260px 10px 10px;overflow:hidden;aspect-ratio:4/5;max-width:440px;justify-self:center;width:100%;border:1px solid #4a3a25;box-shadow:0 30px 60px rgba(0,0,0,.5);position:relative}
+.arch img{width:100%;height:100%;object-fit:cover}
+.arch figcaption{position:absolute;left:16px;right:16px;bottom:16px;background:rgba(22,17,13,.78);border-radius:8px;padding:10px 14px;font-size:14px;display:flex;justify-content:space-between;gap:10px;align-items:center}
+.arch figcaption b{font-family:var(--serif);font-weight:500;font-size:17px}
+.arch figcaption button{color:var(--gold-l);font-weight:600;white-space:nowrap}
+@media(max-width:860px){.hero .wrap{grid-template-columns:1fr}.arch{max-width:280px;order:-1}}
+
+.ticker{background:var(--night-2);color:#E9E0CC;font-size:14px;border-top:1px solid #3a2e20}
+.ticker .wrap{display:flex;gap:10px 32px;justify-content:center;flex-wrap:wrap;padding:8px 24px}
+.ticker button{padding:8px 0;border-bottom:1px solid transparent}
+.ticker button:hover{color:var(--gold-l);border-color:var(--gold-l)}
+
+/* sections */
+section{padding:84px 0}
+h2{font-family:var(--serif);font-weight:500;font-size:clamp(30px,4vw,44px);line-height:1.12;margin-bottom:14px;text-wrap:balance}
+h3{font-family:var(--serif);font-weight:500}
+.lead{color:var(--muted);max-width:58ch;margin-bottom:36px;font-size:17px}
+.dark{background:var(--night);color:#fff}.dark .lead{color:#CFC5AF}
+
+/* categories */
+.cols{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px}
+.col{position:relative;border-radius:6px 6px 90px 6px;overflow:hidden;aspect-ratio:3/4;color:#fff;text-align:left;display:block}
+.col:nth-child(2){border-radius:6px 90px 6px 6px}.col:nth-child(3){border-radius:90px 6px 6px 6px}.col:nth-child(4){border-radius:6px 6px 6px 90px}
+.col img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .5s}
+.col:hover img{transform:scale(1.05)}
+.col::after{content:"";position:absolute;inset:0;background:linear-gradient(transparent 45%,rgba(16,11,7,.85))}
+.col div{position:absolute;left:20px;right:20px;bottom:18px;z-index:1}
+.col h3{font-size:24px}.col span{font-size:14px;color:#E9E0CC}
+@media(max-width:900px){.cols{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+/* shop */
+.shop{background:var(--ivory-2)}
+.bar{display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;align-items:center;margin-bottom:26px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:1px solid var(--line);border-radius:999px;padding:9px 18px;min-height:44px;font-size:14px;background:var(--card)}
+.chip[aria-pressed=true]{border-color:var(--gold);background:var(--gold-l);color:#1B1611;font-weight:600}
+.sel{display:flex;gap:10px;flex-wrap:wrap}
+select,input[type=text],input[type=email],input[type=number],input[type=tel],textarea{border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:8px;padding:10px 12px;min-height:44px;width:100%}
+.sel select{width:auto}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:20px}
+.card{position:relative;background:var(--card);border:1px solid var(--line);border-radius:8px;overflow:hidden;display:flex;flex-direction:column}
+.card .ph{position:relative;aspect-ratio:1/1;overflow:hidden;display:block;width:100%}
+.card .ph img{width:100%;height:100%;object-fit:cover;transition:transform .5s}
+.card:hover .ph img{transform:scale(1.05)}
+.heart{position:absolute;top:10px;right:10px;width:44px;height:44px;border-radius:50%;background:rgba(255,253,248,.92);display:grid;place-items:center;color:#1B1611}
+.heart svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.6}
+.heart[aria-pressed=true] svg{fill:#B8923A;stroke:#B8923A}
+.tag{position:absolute;left:10px;top:10px;background:var(--night);color:var(--gold-l);font-size:12px;padding:4px 10px;border-radius:999px}
+.card .bd{padding:16px;display:flex;flex-direction:column;gap:4px;flex:1}
+.card h3{font-size:19px;line-height:1.2}
+.card .m{color:var(--muted);font-size:14px}
+.card .pr{font-weight:600;margin-top:auto;padding-top:8px;white-space:nowrap}
+.card .row{display:flex;gap:8px;margin-top:10px}
+.card .row .btn{flex:1;padding:10px 12px;font-size:13px}
+.empty{padding:40px;text-align:center;color:var(--muted)}
+
+/* configurator */
+.cfg{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start}
+.stage{background:radial-gradient(circle at 50% 40%,#3b2d1b,#1b140d 70%);border:1px solid #3a2e20;border-radius:8px;aspect-ratio:1/1;display:grid;place-items:center;position:sticky;top:90px}
+.stage svg{width:78%;height:auto}
+.stage p{position:absolute;bottom:14px;font-size:14px;color:#CFC5AF;text-align:center;left:16px;right:16px}
+fieldset{border:0;margin-bottom:22px}
+legend{font-size:14px;color:#CFC5AF;margin-bottom:10px}
+.opts{display:flex;gap:10px;flex-wrap:wrap}
+.opts input{position:absolute;opacity:0;pointer-events:none}
+.opts label{border:1px solid #5b4a33;border-radius:999px;padding:9px 18px;min-height:44px;font-size:14px;cursor:pointer;display:flex;align-items:center;gap:8px}
+.opts input:checked + label{border-color:var(--gold-l);background:rgba(230,203,134,.14)}
+.opts input:focus-visible + label{outline:2px solid var(--gold-l);outline-offset:2px}
+.dark select,.dark input[type=text]{background:#221A13;border-color:#5b4a33;color:#fff}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.dot{width:14px;height:14px;border-radius:50%;display:inline-block}
+.price{font-family:var(--serif);font-size:44px;margin:6px 0 4px;white-space:nowrap}
+.fine{color:#B9AE97;font-size:14px}
+.confirm{margin-top:14px;color:var(--gold-l);font-size:15px;min-height:24px}
+@media(max-width:860px){.cfg{grid-template-columns:1fr;gap:32px}.stage{position:relative;top:0}}
+
+/* split blocks */
+.split{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
+.split .pic{border-radius:8px 120px 8px 8px;overflow:hidden;aspect-ratio:5/4}
+.split .pic img{width:100%;height:100%;object-fit:cover}
+.split ul{list-style:none;margin:4px 0 26px}
+.split li{padding:10px 0;border-bottom:1px solid var(--line)}
+@media(max-width:860px){.split{grid-template-columns:1fr;gap:28px}}
+
+/* trust */
+.trust{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:28px}
+.trust button{text-align:left;padding:14px 0 0;border-top:2px solid var(--gold)}
+.trust h3{font-size:22px;margin-bottom:8px}
+.trust p{color:var(--muted)}
+.more{display:inline-block;margin-top:10px;color:var(--gold);font-weight:600;font-size:14px}
+@media(max-width:800px){.trust{grid-template-columns:1fr}}
+
+/* pay */
+.pay{background:var(--ivory-2)}
+.paygrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+.paygrid button{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:24px;text-align:left;transition:border-color .2s,transform .2s}
+.paygrid button:hover{border-color:var(--gold);transform:translateY(-3px)}
+.paygrid h3{font-size:21px;margin-bottom:6px}
+.paygrid p{color:var(--muted);font-size:15px}
+.paygrid small{display:block;margin-top:14px;color:var(--gold);font-weight:600;font-size:14px}
+@media(max-width:900px){.paygrid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:560px){.paygrid{grid-template-columns:1fr}}
+
+/* club */
+.plans{display:grid;gap:14px;margin-bottom:18px}
+.plan{border:1px solid var(--line);background:var(--card);border-radius:8px;padding:20px 22px;display:flex;justify-content:space-between;align-items:baseline;gap:12px;text-align:left;width:100%}
+.plan[aria-pressed=true]{border-color:var(--gold);border-width:2px;padding:19px 21px}
+.plan b{font-family:var(--serif);font-size:30px;font-weight:500;white-space:nowrap}
+.plan small{color:var(--muted)}
+
+/* booking */
+.book .split{align-items:start}
+.bookform{display:grid;gap:18px}
+.bookform label{display:block;font-size:14px;color:#CFC5AF;margin-bottom:6px}
+.dark .bookform input,.dark .bookform select{background:#221A13;border-color:#5b4a33;color:#fff}
+.slots{display:flex;flex-wrap:wrap;gap:8px}
+.slot{border:1px solid #5b4a33;border-radius:999px;padding:8px 14px;min-height:44px;font-size:14px;color:#fff;white-space:nowrap}
+.slot[aria-pressed=true]{background:var(--gold-l);color:#1B1611;border-color:var(--gold-l);font-weight:600}
+.slot[disabled]{opacity:.3;text-decoration:line-through;cursor:not-allowed}
+.err{color:#E9967A;font-size:14px;min-height:20px}
+.done{border:1px solid var(--gold);border-radius:8px;padding:24px;background:rgba(230,203,134,.08)}
+
+footer{background:#0F0B08;color:#B9AE97;font-size:14px;padding:44px 0 30px}
+footer .wrap{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:28px}
+footer h4{color:#fff;font-family:var(--serif);font-weight:500;font-size:18px;margin-bottom:10px}
+footer button{display:block;padding:6px 0;color:#B9AE97;text-align:left}
+footer button:hover{color:var(--gold-l)}
+footer .end{grid-column:1/-1;border-top:1px solid #2d2318;padding-top:18px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+@media(max-width:760px){footer .wrap{grid-template-columns:1fr}}
+
+/* overlays */
+.scrim{position:fixed;inset:0;background:rgba(10,7,4,.6);z-index:40;opacity:0;pointer-events:none;transition:opacity .25s}
+.scrim.on{opacity:1;pointer-events:auto}
+.drawer{position:fixed;top:0;right:0;bottom:0;width:min(440px,100%);background:var(--ivory);color:var(--ink);z-index:50;transform:translateX(100%);transition:transform .3s;display:flex;flex-direction:column}
+.drawer.on{transform:none}
+.dh{display:flex;justify-content:space-between;align-items:center;padding:16px 20px;border-bottom:1px solid var(--line)}
+.dh h3{font-size:24px}
+.x{width:44px;height:44px;border-radius:50%;display:grid;place-items:center}
+.x:hover{background:var(--ivory-2)}
+.x svg{width:20px;height:20px;stroke:currentColor;stroke-width:1.8}
+.db{flex:1;overflow:auto;padding:16px 20px}
+.df{border-top:1px solid var(--line);padding:16px 20px;display:grid;gap:10px}
+.line{display:grid;grid-template-columns:72px 1fr auto;gap:12px;padding:12px 0;border-bottom:1px solid var(--line);align-items:start}
+.line img,.line .gc{width:72px;height:72px;object-fit:cover;border-radius:6px}
+.gc{background:linear-gradient(135deg,#E6CB86,#B8923A);display:grid;place-items:center;font-family:var(--serif);color:#1B1611}
+.line b{display:block;font-weight:600;line-height:1.3}
+.line small{color:var(--muted);display:block;font-size:13px}
+.qty{display:flex;align-items:center;gap:4px;margin-top:6px}
+.qty button{width:32px;height:32px;border:1px solid var(--line);border-radius:50%}
+.link{color:var(--gold);font-weight:600;font-size:14px;padding:6px 0}
+.sum{display:flex;justify-content:space-between;gap:10px}
+.sum.big{font-family:var(--serif);font-size:24px}
+.modal{position:fixed;left:50%;top:50%;transform:translate(-50%,-46%);width:min(760px,calc(100% - 24px));max-height:calc(100vh - 40px);overflow:auto;background:var(--ivory);color:var(--ink);border-radius:12px;z-index:60;opacity:0;pointer-events:none;transition:opacity .25s,transform .25s}
+.modal.on{opacity:1;pointer-events:auto;transform:translate(-50%,-50%)}
+.modal .x{position:absolute;top:10px;right:10px;background:var(--ivory);z-index:2}
+.mb{padding:30px}
+.mb h3{font-size:30px;line-height:1.15;margin-bottom:8px;padding-right:40px}
+.mb .lead{margin-bottom:20px;font-size:16px}
+.form{display:grid;gap:14px}
+.form label{display:block;font-size:14px;color:var(--muted);margin-bottom:4px}
+.pd{display:grid;grid-template-columns:1fr 1fr;gap:26px}
+.pd img{width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:8px}
+.pills{display:flex;flex-wrap:wrap;gap:8px}
+.pill{border:1px solid var(--line);border-radius:999px;padding:8px 16px;min-height:44px;font-size:14px}
+.pill[aria-pressed=true]{border-color:var(--gold);background:var(--gold-l);color:#1B1611;font-weight:600}
+.result{font-family:var(--serif);font-size:34px;line-height:1.1;margin:6px 0;white-space:nowrap}
+.note{font-size:13px;color:var(--muted)}
+.steps{display:flex;gap:8px;margin-bottom:20px;font-size:13px;color:var(--muted);flex-wrap:wrap}
+.steps span{border-bottom:2px solid var(--line);padding-bottom:4px}
+.steps span.on{border-color:var(--gold);color:var(--ink);font-weight:600}
+.track{list-style:none;display:grid;gap:0;margin:16px 0}
+.track li{padding:10px 0 10px 28px;position:relative;border-left:2px solid var(--line);margin-left:8px}
+.track li::before{content:"";position:absolute;left:-8px;top:14px;width:14px;height:14px;border-radius:50%;background:var(--ivory);border:2px solid var(--line)}
+.track li.ok{border-color:var(--gold)}.track li.ok::before{background:var(--gold);border-color:var(--gold)}
+table{border-collapse:collapse;width:100%;font-size:15px}
+td,th{padding:9px 6px;border-bottom:1px solid var(--line);text-align:left}
+td:last-child{text-align:right}
+details{border-bottom:1px solid var(--line);padding:12px 0}
+summary{cursor:pointer;font-weight:600}
+details p{color:var(--muted);margin-top:8px}
+.tryarea{position:relative;aspect-ratio:4/3;border-radius:8px;overflow:hidden;background:#221A13;touch-action:none;user-select:none}
+.tryarea img{width:100%;height:100%;object-fit:cover;pointer-events:none}
+.jewel{position:absolute;left:50%;top:50%;width:90px;cursor:grab;filter:drop-shadow(0 4px 8px rgba(0,0,0,.5))}
+.toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,30px);background:var(--night);color:#fff;border:1px solid var(--gold);padding:12px 20px;border-radius:999px;z-index:80;opacity:0;transition:.3s;font-size:14px;max-width:calc(100% - 32px);text-align:center;pointer-events:none}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+@media(max-width:640px){.pd,.two{grid-template-columns:1fr}.mb{padding:24px 18px}}
+/* app shell */
+.tabbar{display:none}
+#install[hidden]{display:none}
+@media(max-width:900px){
+  .tabbar{display:grid;grid-template-columns:repeat(5,1fr);position:fixed;left:0;right:0;bottom:0;z-index:30;background:rgba(22,17,13,.96);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-top:1px solid #2d2318;padding-bottom:env(safe-area-inset-bottom)}
+  .tabbar button{display:flex;flex-direction:column;align-items:center;gap:2px;padding:8px 0 7px;color:#B9AE97;font-size:11px;position:relative;min-height:56px}
+  .tabbar button.on{color:var(--gold-l)}
+  .tabbar svg{width:23px;height:23px;fill:none;stroke:currentColor;stroke-width:1.6}
+  .tabbar .count{top:3px;right:calc(50% - 22px)}
+  body{padding-bottom:calc(64px + env(safe-area-inset-bottom))}
+  .toast{bottom:calc(80px + env(safe-area-inset-bottom))}
+  #bBag,#bMenu{display:none}
+  .drawer{bottom:0}
+  .hero{padding-top:100px}
+}
+@media(display-mode:standalone){.webonly{display:none!important}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <nav aria-label="Main">
+      <a class="brand" href="#top" aria-label="Aurélia Diamonds home">
+        <svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="18" fill="none" stroke="#B8923A" stroke-width="1.4"/><path d="M9 17 14 11h12l5 6-11 14z" fill="#B8923A"/><path d="M9 17h22M14 11l3 6 3 14 3-14 3-6" fill="none" stroke="#16110D" stroke-width=".9"/></svg>
+        <span>Aurélia Diamonds</span>
+      </a>
+      <ul class="links" id="links">
+        <li><a href="#collections">Collections</a></li>
+        <li><a href="#shop">Shop</a></li>
+        <li><a href="#create">Create your ring</a></li>
+        <li><a href="#pay">Ways to pay</a></li>
+        <li><a href="#club">Gold Club</a></li>
+        <li><a href="#book">Book a jeweller</a></li>
+      </ul>
+      <div class="tools">
+        <button class="ib" id="bSearch" aria-label="Search"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg></button>
+        <button class="ib" id="bWish" aria-label="Wish list"><svg viewBox="0 0 24 24"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></svg><span class="count" id="cWish"></span></button>
+        <button class="ib" id="bAcc" aria-label="My account"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg></button>
+        <button class="ib" id="bBag" aria-label="Shopping bag"><svg viewBox="0 0 24 24"><path d="M5 8h14l-1 12H6z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg><span class="count" id="cBag"></span></button>
+        <button class="ib burger" id="bMenu" aria-label="Menu" aria-expanded="false"><svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+<div class="hero">
+  <div class="wrap">
+    <div>
+      <h1>Gold and diamonds, chosen with someone who knows them.</h1>
+      <p>Browse our jewellery, try it on with your camera, and talk to a private jeweller by video or in store. Every diamond comes with its certificate.</p>
+      <div class="cta">
+        <a class="btn btn-gold" href="#create">Create your ring</a>
+        <a class="btn btn-line" href="#collections">See collections</a>
+        <button class="btn btn-line" id="install" type="button" hidden>Install the app</button>
+      </div>
+    </div>
+    <figure class="arch">
+      <img src="img/hero.jpg" alt="Pear-cut diamond ring on black velvet">
+      <figcaption><span><b>Teardrop Pear Halo</b><br>White gold, from €4,350</span><button type="button" data-open="r4">View ring</button></figcaption>
+    </figure>
+  </div>
+</div>
+
+<div class="ticker" aria-label="Today at Aurélia Diamonds">
+  <div class="wrap">
+    <button type="button" data-info="cert">Certified diamonds on every piece</button>
+    <button type="button" data-info="track">Insured delivery worldwide</button>
+    <button type="button" data-goto="book">Video appointments, 7 days a week</button>
+  </div>
+</div>
+
+<section id="collections">
+  <div class="wrap">
+    <h2>Four ways to wear gold</h2>
+    <p class="lead">Each collection comes in yellow, rose or white gold, with or without diamonds.</p>
+    <div class="cols">
+      <button class="col" type="button" data-cat="ring"><img src="img/cat-rings.jpg" alt="Hand wearing two diamond rings"><div><h3>Rings</h3><span>Solitaires and wedding bands, from €650</span></div></button>
+      <button class="col" type="button" data-cat="necklace"><img src="img/cat-necklaces.jpg" alt="Woman wearing a fine gold necklace"><div><h3>Necklaces</h3><span>Pendants and chains, from €390</span></div></button>
+      <button class="col" type="button" data-cat="earring"><img src="img/cat-earrings.jpg" alt="Gold drop earring worn"><div><h3>Earrings</h3><span>Studs and drops, from €290</span></div></button>
+      <button class="col" type="button" data-cat="bracelet"><img src="img/cat-bracelets.jpg" alt="Gold chains and bracelets"><div><h3>Bracelets</h3><span>Bangles and chains, from €450</span></div></button>
+    </div>
+  </div>
+</section>
+
+<section class="shop" id="shop">
+  <div class="wrap">
+    <h2>The jewellery case</h2>
+    <p class="lead">Open any piece to choose the gold, try it on or ask a jeweller about it.</p>
+    <div class="bar">
+      <div class="chips" id="chips">
+        <button class="chip" data-f="all" aria-pressed="true">All</button>
+        <button class="chip" data-f="ring" aria-pressed="false">Rings</button>
+        <button class="chip" data-f="necklace" aria-pressed="false">Necklaces</button>
+        <button class="chip" data-f="earring" aria-pressed="false">Earrings</button>
+        <button class="chip" data-f="bracelet" aria-pressed="false">Bracelets</button>
+      </div>
+      <div class="sel">
+        <select id="fDia" aria-label="Diamonds"><option value="all">With or without diamonds</option><option value="yes">With diamonds</option><option value="no">Gold only</option></select>
+        <select id="fSort" aria-label="Sort"><option value="pop">Most loved</option><option value="asc">Price, low to high</option><option value="desc">Price, high to low</option></select>
+      </div>
+    </div>
+    <div class="grid" id="grid"></div>
+  </div>
+</section>
+
+<section class="dark" id="create">
+  <div class="wrap">
+    <h2>Create your ring</h2>
+    <p class="lead">Choose the gold, the shape and the diamond. The price updates as you go.</p>
+    <div class="cfg">
+      <div class="stage">
+        <svg id="ring" viewBox="0 0 300 300" role="img" aria-label="Preview of your ring">
+          <defs><linearGradient id="bandg" x1="0" y1="0" x2="1" y2="1"><stop id="b1" offset="0" stop-color="#F3DD9B"/><stop id="b2" offset="1" stop-color="#B8923A"/></linearGradient></defs>
+          <circle cx="150" cy="190" r="70" fill="none" stroke="url(#bandg)" stroke-width="16"/>
+          <circle cx="150" cy="190" r="62" fill="none" stroke="#000" stroke-opacity=".18" stroke-width="2"/>
+          <g id="stone" transform="translate(150 112) scale(1)">
+            <path d="M-34 0 -20 -22h40l14 22L0 46z" fill="#EAF4FF"/>
+            <path d="M-20 -22 -9 0 0 -22zM20 -22 9 0 0 -22z" fill="#fff" opacity=".9"/>
+            <path d="M-34 0h68L0 46z" fill="#BCD8F2" opacity=".85"/>
+            <g fill="none" stroke="#8FB4D9" stroke-width="1"><path d="M-34 0h68M-20 -22l11 22 9 46 9-46 11-22"/></g>
+          </g>
+          <path d="M126 134l24 8 24-8-6 14h-36z" fill="url(#bandg)"/>
+          <text id="eng" x="150" y="275" text-anchor="middle" fill="#E6CB86" font-family="Bodoni Moda, serif" font-style="italic" font-size="15"></text>
+        </svg>
+        <p id="stageTxt">18K yellow gold, round 0.50 ct</p>
+      </div>
+      <div>
+        <form id="f">
+          <fieldset><legend>Gold</legend><div class="opts">
+            <span><input type="radio" name="gold" id="g-y" value="yellow" checked><label for="g-y"><i class="dot" style="background:#E6CB86"></i>Yellow</label></span>
+            <span><input type="radio" name="gold" id="g-r" value="rose"><label for="g-r"><i class="dot" style="background:#E7B7A4"></i>Rose</label></span>
+            <span><input type="radio" name="gold" id="g-w" value="white"><label for="g-w"><i class="dot" style="background:#D9D9D9"></i>White</label></span>
+          </div></fieldset>
+          <fieldset><legend>Shape</legend><div class="opts">
+            <span><input type="radio" name="sh" id="s-r" value="round" checked><label for="s-r">Round</label></span>
+            <span><input type="radio" name="sh" id="s-o" value="oval"><label for="s-o">Oval</label></span>
+            <span><input type="radio" name="sh" id="s-p" value="pear"><label for="s-p">Pear</label></span>
+            <span><input type="radio" name="sh" id="s-e" value="emerald"><label for="s-e">Emerald</label></span>
+          </div></fieldset>
+          <fieldset><legend>Diamond size</legend><div class="opts">
+            <span><input type="radio" name="ct" id="c1" value="0.30"><label for="c1">0.30 ct</label></span>
+            <span><input type="radio" name="ct" id="c2" value="0.50" checked><label for="c2">0.50 ct</label></span>
+            <span><input type="radio" name="ct" id="c3" value="0.75"><label for="c3">0.75 ct</label></span>
+            <span><input type="radio" name="ct" id="c4" value="1.00"><label for="c4">1.00 ct</label></span>
+          </div></fieldset>
+          <fieldset><div class="two">
+            <div><legend>Ring size</legend><select id="size" aria-label="Ring size"></select></div>
+            <div><legend>Free engraving</legend><input type="text" id="engr" maxlength="18" placeholder="Up to 18 letters" aria-label="Engraving"></div>
+          </div></fieldset>
+        </form>
+        <div class="price" id="price" aria-live="polite">€2,450</div>
+        <p class="fine" id="inst" style="margin-bottom:6px"></p>
+        <p class="fine" id="desc" style="margin-bottom:22px"></p>
+        <div class="cta">
+          <button class="btn btn-gold" id="add" type="button">Add to bag</button>
+          <button class="btn btn-line" id="cfgTry" type="button">Try it on</button>
+          <button class="btn btn-line" id="cfgAsk" type="button">Ask a jeweller</button>
+        </div>
+        <p class="confirm" id="msg" aria-live="polite"></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="try">
+  <div class="wrap split">
+    <div class="pic"><img src="img/tryon.jpg" alt="Hands wearing fine gold rings" loading="lazy"></div>
+    <div>
+      <h2>Try it on before you buy</h2>
+      <p class="lead" style="margin-bottom:16px">Use your camera or a photo of your hand, neck or ear. Place the jewel, change its size and gold, and see how it looks on you.</p>
+      <ul><li>Live camera or any photo from your phone</li><li>Rings, pendants and studs</li><li>Your photo stays on your device</li></ul>
+      <button class="btn btn-dark" type="button" id="tryBtn">Start trying on</button>
+    </div>
+  </div>
+</section>
+
+<section style="padding-top:20px">
+  <div class="wrap">
+    <h2>Buy with confidence</h2>
+    <p class="lead">Jewellery is a big purchase. Here is what comes with every order.</p>
+    <div class="trust">
+      <button type="button" data-info="cert"><h3>Certified diamonds</h3><p>Each diamond has its own certificate, stored in your account and ready to show your insurer.</p><span class="more">See a certificate</span></button>
+      <button type="button" data-info="try"><h3>Try before you buy</h3><p>See rings, necklaces and earrings on you with a photo, then book a jeweller if you want a second opinion.</p><span class="more">Try it now</span></button>
+      <button type="button" data-info="track"><h3>Insured delivery</h3><p>Your jewel travels in a gift box, fully insured, and you can follow it from the workshop to your door.</p><span class="more">Track a delivery</span></button>
+    </div>
+  </div>
+</section>
+
+<section class="pay" id="pay">
+  <div class="wrap">
+    <h2>Ways to pay</h2>
+    <p class="lead">Spread the cost, save for it, or trade in old gold. Open a card to simulate your own amount.</p>
+    <div class="paygrid">
+      <button type="button" data-pay="p34"><h3>Pay in 3 or 4 times</h3><p>No fees for you. We cover the cost with our payment partner.</p><small>From €150</small></button>
+      <button type="button" data-pay="p10"><h3>Pay in 10 times</h3><p>For larger orders, with a licensed financing partner. Credit is subject to approval.</p><small>From €1,000</small></button>
+      <button type="button" data-pay="save"><h3>Gold savings plan</h3><p>Save a little each month, then choose your jewel at the end of the plan.</p><small>You set the amount</small></button>
+      <button type="button" data-pay="dep"><h3>30% deposit</h3><p>For custom creations: pay 30% now to start the design, and the rest at delivery.</p><small>Custom design</small></button>
+      <button type="button" data-pay="trade"><h3>Old gold trade-in</h3><p>We value your old jewellery and deduct it from the price of your new one.</p><small>Free estimate</small></button>
+      <button type="button" data-pay="gift"><h3>Gift card and mobile pay</h3><p>Offer a gift card, or pay in one tap with Apple Pay and Google Pay.</p><small>Instant</small></button>
+    </div>
+  </div>
+</section>
+
+<section id="club">
+  <div class="wrap split">
+    <div>
+      <h2>Gold Club</h2>
+      <p class="lead" style="margin-bottom:12px">For people who come back. Join once, enjoy it all year.</p>
+      <ul>
+        <li>Free insured shipping on every order</li>
+        <li>One free cleaning and check-up each year</li>
+        <li>First access to new collections</li>
+        <li>Wish lists you can share with family</li>
+      </ul>
+      <div class="plans" id="plans">
+        <button class="plan" type="button" data-plan="monthly" aria-pressed="false"><span>Monthly</span><span><b>€9.90</b> <small>/ month</small></span></button>
+        <button class="plan" type="button" data-plan="yearly" aria-pressed="true"><span>Yearly<br><small>Two months free</small></span><span><b>€99</b> <small>/ year</small></span></button>
+      </div>
+      <button class="btn btn-dark" type="button" id="join">Join Gold Club</button>
+    </div>
+    <div class="pic"><img src="img/club.jpg" alt="Boutique shelves with jewellery displays" loading="lazy"></div>
+  </div>
+</section>
+
+<section class="dark book" id="book">
+  <div class="wrap split">
+    <div>
+      <h2>Talk to a private jeweller</h2>
+      <p class="lead">Choose a time for a 20-minute video call or visit us in store. We will help you pick the right piece, with no pressure.</p>
+      <div class="pic" style="border-radius:120px 8px 8px 8px"><img src="img/jeweller.jpg" alt="Jeweller examining a ring at her workbench" loading="lazy"></div>
+    </div>
+    <div id="bookBox">
+      <form class="bookform" id="bf" novalidate>
+        <div><label>How would you like to meet?</label><div class="slots" id="bType">
+          <button type="button" class="slot" data-v="Video call" aria-pressed="true">Video call</button>
+          <button type="button" class="slot" data-v="In store" aria-pressed="false">In store</button>
+        </div></div>
+        <div id="storeRow" hidden><label for="bStore">Boutique</label><select id="bStore"><option>Toulouse, Place du Capitole</option><option>Paris, Rue de la Paix</option><option>Lyon, Place Bellecour</option></select></div>
+        <div><label>Day</label><div class="slots" id="bDays"></div></div>
+        <div><label>Time</label><div class="slots" id="bTimes"></div></div>
+        <div><label for="bTopic">What would you like to talk about?</label><select id="bTopic"><option>Engagement ring</option><option>Wedding bands</option><option>A gift</option><option>Custom design</option><option>Old gold trade-in</option><option>Cleaning or repair</option></select></div>
+        <div class="two">
+          <div><label for="bName">Your name</label><input type="text" id="bName" autocomplete="name"></div>
+          <div><label for="bMail">Email</label><input type="email" id="bMail" autocomplete="email"></div>
+        </div>
+        <p class="err" id="bErr" aria-live="polite"></p>
+        <button class="btn btn-gold" type="submit">Book an appointment</button>
+      </form>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div><h4>Aurélia Diamonds</h4><p>Certified gold and diamond jewellery, chosen with a private jeweller.</p></div>
+    <div><h4>Help</h4>
+      <button type="button" data-info="faq">Questions and answers</button>
+      <button type="button" data-info="ship">Delivery and returns</button>
+      <button type="button" data-info="care">Jewellery care</button>
+      <button type="button" data-info="contact">Contact us</button>
+    </div>
+    <div><h4>About</h4>
+      <button type="button" data-goto="collections">Collections</button>
+      <button type="button" data-goto="club">Gold Club</button>
+      <button type="button" data-info="legal">About this concept</button>
+    </div>
+    <div class="end">
+      <span>Aurélia Diamonds - concept app for the "From Idea to App" assignment. Photos from Unsplash.</span>
+      <span>Inass Aharchi, Aicha Rcham, Evan Mailloux</span>
+    </div>
+  </div>
+</footer>
+
+<div class="scrim" id="scrim"></div>
+<aside class="drawer" id="drawer" aria-label="Panel" aria-hidden="true">
+  <div class="dh"><h3 id="dTitle">Bag</h3><button class="x" data-close aria-label="Close"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
+  <div class="db" id="dBody"></div>
+  <div class="df" id="dFoot"></div>
+</aside>
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-label="Details">
+  <button class="x" data-close aria-label="Close"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+  <div class="mb" id="mBody"></div>
+</div>
+<nav class="tabbar" aria-label="App">
+  <button type="button" data-tab="top" class="on"><svg viewBox="0 0 24 24"><path d="M4 11 12 4l8 7v9h-5v-6H9v6H4z"/></svg>Home</button>
+  <button type="button" data-tab="shop"><svg viewBox="0 0 24 24"><path d="M6 3h12l3 6-9 12L3 9z"/><path d="M3 9h18"/></svg>Shop</button>
+  <button type="button" data-tab="create"><svg viewBox="0 0 24 24"><circle cx="12" cy="15" r="6"/><path d="M9 6l1.5-3h3L15 6l-3 3z"/></svg>Create</button>
+  <button type="button" data-tab="book"><svg viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M9 3v4M15 3v4"/></svg>Book</button>
+  <button type="button" data-tab="bag"><svg viewBox="0 0 24 24"><path d="M5 8h14l-1 12H6z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>Bag<span class="count" id="cBag2"></span></button>
+</nav>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+{
+const P=[
+ {id:"r1",cat:"ring",name:"Radiance Solitaire",metal:"yellow",price:3900,dia:1,img:"r1",d:"Emerald-cut 0.70 ct diamond on a pavé band in 18K yellow gold.",pop:1},
+ {id:"r2",cat:"ring",name:"Rose Dew Halo",metal:"rose",price:2750,dia:1,img:"r2",d:"Cushion pink sapphire framed by a diamond halo, 18K rose gold.",pop:5},
+ {id:"r3",cat:"ring",name:"Star Six-Claw",metal:"white",price:6200,dia:1,img:"r3",d:"Round brilliant 1.00 ct diamond held by six claws, 18K white gold.",pop:2},
+ {id:"r4",cat:"ring",name:"Teardrop Pear Halo",metal:"white",price:4350,dia:1,img:"r4",d:"Pear-cut diamond with a halo and a fine pavé band, 18K white gold.",pop:3},
+ {id:"r5",cat:"ring",name:"Vintage Halo",metal:"white",price:3200,dia:1,img:"r5",d:"Round diamond in a double halo with a split shank, 18K white gold.",pop:9},
+ {id:"r6",cat:"ring",name:"Duo Stacking Bands",metal:"yellow",price:1180,dia:1,img:"r6",d:"Two bands with diamond clusters, made to be worn together.",pop:7},
+ {id:"r7",cat:"ring",name:"Five Stone Band",metal:"yellow",price:650,dia:0,img:"r7",d:"A slim 18K gold band set with five small gold beads.",pop:12},
+ {id:"n1",cat:"necklace",name:"Bar Pendant",metal:"yellow",price:590,dia:0,img:"n1",d:"A polished gold bar on a fine 42 cm chain.",pop:8},
+ {id:"n2",cat:"necklace",name:"Circle Pendant",metal:"yellow",price:420,dia:0,img:"n2",d:"An open gold circle on a double cable chain.",pop:6},
+ {id:"n3",cat:"necklace",name:"Oval Pendant",metal:"yellow",price:480,dia:0,img:"n3",d:"A soft oval of 18K gold on a snake chain.",pop:14},
+ {id:"n4",cat:"necklace",name:"Heart Charm",metal:"yellow",price:390,dia:0,img:"n4",d:"A small gold heart on a delicate adjustable chain.",pop:4},
+ {id:"n5",cat:"necklace",name:"Curb Chain",metal:"rose",price:720,dia:0,img:"n5",d:"A curb chain in 18K rose gold, 45 cm.",pop:16},
+ {id:"e1",cat:"earring",name:"Sunlight Studs",metal:"yellow",price:980,dia:1,img:"e1",d:"Two 0.20 ct round diamonds in bezel settings, 18K yellow gold.",pop:10},
+ {id:"e2",cat:"earring",name:"Hexa Diamond Studs",metal:"yellow",price:1250,dia:1,img:"e2",d:"A central diamond framed by a hexagon of smaller stones.",pop:11},
+ {id:"e3",cat:"earring",name:"Laurel Wreath",metal:"white",price:1690,dia:1,img:"e3",d:"Marquise diamonds set as a laurel wreath, 18K white gold.",pop:15},
+ {id:"e4",cat:"earring",name:"Cascade Drops",metal:"white",price:2400,dia:1,img:"e4",d:"Long diamond drops for evenings, 18K white gold.",pop:13},
+ {id:"e5",cat:"earring",name:"Flower Drops",metal:"rose",price:290,dia:0,img:"e5",d:"Small engraved flowers on hooks, 18K rose gold.",pop:17},
+ {id:"e6",cat:"earring",name:"Glow Drops",metal:"yellow",price:1450,dia:1,img:"e6",d:"Round diamonds hanging from a gold leaf, 18K yellow gold.",pop:18},
+ {id:"b1",cat:"bracelet",name:"Link Chain",metal:"yellow",price:650,dia:0,img:"b1",d:"Elongated links in 18K yellow gold with a toggle clasp.",pop:19},
+ {id:"b2",cat:"bracelet",name:"Bold Chain",metal:"yellow",price:890,dia:0,img:"b2",d:"A bold chunky chain bracelet, 18K yellow gold.",pop:20},
+ {id:"b3",cat:"bracelet",name:"ID Plate",metal:"yellow",price:450,dia:0,img:"b3",d:"A fine chain with an engravable plate, free engraving.",pop:21},
+ {id:"b4",cat:"bracelet",name:"Charms Trio",metal:"yellow",price:520,dia:0,img:"b4",d:"Three fine chains with small charms, to wear alone or stacked.",pop:22},
+ {id:"b5",cat:"bracelet",name:"Slim Bangles",metal:"yellow",price:1150,dia:0,img:"b5",d:"A set of three slim 18K gold bangles.",pop:23}
+];
+const CAT={ring:"Ring",necklace:"Necklace",earring:"Earrings",bracelet:"Bracelet"};
+const GOLDC={yellow:["#F3DD9B","#B8923A"],rose:["#F4CDBF","#C98B76"],white:["#F2F2F2","#A9A9A9"]};
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const fmt=n=>"€"+Math.round(n).toLocaleString("en-GB");
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const byId=id=>P.find(p=>p.id===id);
+
+/* state */
+let S={bag:[],wish:[],orders:[],books:[],member:null,plans:[]};
+try{const s=JSON.parse(localStorage.getItem("aurelia")||"null");if(s)S=Object.assign(S,s)}catch(e){}
+const save=()=>{try{localStorage.setItem("aurelia",JSON.stringify(S))}catch(e){}};
+
+const toast=t=>{const el=$("#toast");el.textContent=t;el.classList.add("on");clearTimeout(toast.t);toast.t=setTimeout(()=>el.classList.remove("on"),2600)};
+const counts=()=>{const n=S.bag.reduce((a,b)=>a+b.qty,0);$("#cBag").textContent=n||"";$("#cBag2").textContent=n||"";$("#cWish").textContent=S.wish.length||""};
+
+/* overlays */
+const scrim=$("#scrim"),drawer=$("#drawer"),modal=$("#modal");
+let drawerKind=null;
+let camStream=null;
+const stopCam=()=>{if(camStream){camStream.getTracks().forEach(t=>t.stop());camStream=null}};
+function closeAll(){stopCam();drawer.classList.remove("on");modal.classList.remove("on");scrim.classList.remove("on");drawer.setAttribute("aria-hidden","true");document.body.classList.remove("lock");drawerKind=null}
+function openModal(html){drawer.classList.remove("on");drawerKind=null;$("#mBody").innerHTML=html;modal.classList.add("on");scrim.classList.add("on");document.body.classList.add("lock");modal.scrollTop=0;setTimeout(()=>{const f=modal.querySelector("input,select,button:not(.x)");if(f)f.focus({preventScroll:true})},50)}
+function openDrawer(kind){modal.classList.remove("on");drawerKind=kind;renderDrawer();drawer.classList.add("on");drawer.setAttribute("aria-hidden","false");scrim.classList.add("on");document.body.classList.add("lock")}
+scrim.addEventListener("click",closeAll);
+document.addEventListener("click",e=>{if(e.target.closest("[data-close]"))closeAll()});
+document.addEventListener("keydown",e=>{if(e.key==="Escape")closeAll()});
+function goto(id){closeAll();$("#links").classList.remove("open");document.getElementById(id).scrollIntoView({behavior:"smooth"})}
+
+/* bag */
+function addBag(item){const k=item.id+"|"+item.desc;const f=S.bag.find(b=>b.key===k);if(f)f.qty+=item.qty||1;else S.bag.push(Object.assign({key:k,qty:1},item));save();counts();toast("Added to bag: "+item.name)}
+const subtotal=()=>S.bag.reduce((a,b)=>a+b.price*b.qty,0);
+const shipping=()=>S.bag.length&&!S.bag.every(b=>b.gift)&&!S.member?15:0;
+const toggleWish=id=>{const i=S.wish.indexOf(id);if(i>-1){S.wish.splice(i,1);toast("Removed from wish list")}else{S.wish.push(id);toast("Saved to wish list")}save();counts();renderGrid();if(drawerKind)renderDrawer()};
+
+function renderDrawer(){
+  const B=$("#dBody"),F=$("#dFoot");
+  if(drawerKind==="bag"){
+    $("#dTitle").textContent="Your bag";
+    if(!S.bag.length){B.innerHTML='<div class="empty">Your bag is empty.<br><br><button class="btn btn-dark" data-goto="shop">Browse the jewellery</button></div>';F.innerHTML="";return}
+    B.innerHTML=S.bag.map((b,i)=>`<div class="line">${b.gift?'<div class="gc">Gift</div>':`<img src="img/${esc(b.img)}.jpg" alt="">`}<div><b>${esc(b.name)}</b><small>${esc(b.desc)}</small><div class="qty"><button data-q="${i}" data-d="-1" aria-label="Less">−</button><span>${b.qty}</span><button data-q="${i}" data-d="1" aria-label="More">+</button><button class="link" data-rm="${i}" style="margin-left:10px">Remove</button></div></div><span>${fmt(b.price*b.qty)}</span></div>`).join("");
+    const st=subtotal(),sh=shipping();
+    F.innerHTML=`<div class="sum"><span>Subtotal</span><span>${fmt(st)}</span></div><div class="sum"><span>Insured delivery${S.member?" (Gold Club)":""}</span><span>${sh?fmt(sh):"Free"}</span></div><div class="sum big"><span>Total</span><span>${fmt(st+sh)}</span></div>${st+sh>=150?`<p class="note">or 3 x ${fmt((st+sh)/3)} with no fees</p>`:""}<button class="btn btn-dark full" id="toCheckout">Checkout</button>`;
+  }else if(drawerKind==="wish"){
+    $("#dTitle").textContent="Wish list";
+    const W=S.wish.map(byId).filter(Boolean);
+    if(!W.length){B.innerHTML='<div class="empty">Tap the heart on any piece to save it here.</div>';F.innerHTML="";return}
+    B.innerHTML=W.map(p=>`<div class="line"><img src="img/${p.img}.jpg" alt=""><div><b>${esc(p.name)}</b><small>${CAT[p.cat]}, ${fmt(p.price)}</small><button class="link" data-open="${p.id}">View</button> <button class="link" data-wrm="${p.id}" style="margin-left:10px">Remove</button></div><span></span></div>`).join("");
+    F.innerHTML=`<button class="btn btn-dark full" id="shareWish">Share my wish list</button><p class="note">Paste it in a message to family or friends.</p>`;
+  }else{
+    $("#dTitle").textContent="My account";
+    const o=S.orders.length?S.orders.map(x=>`<div class="line"><div class="gc">${x.items}</div><div><b>Order ${esc(x.no)}</b><small>${esc(x.date)}, ${esc(x.plan)}</small><button class="link" data-track="${esc(x.no)}">Track delivery</button></div><span>${fmt(x.total)}</span></div>`).join(""):'<p class="note">No orders yet.</p>';
+    const bk=S.books.length?S.books.map(x=>`<p style="padding:8px 0;border-bottom:1px solid var(--line)"><b>${esc(x.type)}</b>, ${esc(x.day)} at ${esc(x.time)}<br><small class="note">${esc(x.topic)}${x.store?", "+esc(x.store):""}</small></p>`).join(""):'<p class="note">No appointments yet.</p>';
+    const pl=S.plans.length?S.plans.map(x=>`<p class="note">${esc(x)}</p>`).join(""):'<p class="note">No savings plan yet.</p>';
+    B.innerHTML=`<h3 style="font-size:20px;margin-bottom:6px">Gold Club</h3><p class="note" style="margin-bottom:18px">${S.member?"Member, "+esc(S.member.plan)+" plan, joined as "+esc(S.member.name):'Not a member yet. <button class="link" data-goto="club">Discover the club</button>'}</p><h3 style="font-size:20px">Orders and certificates</h3>${o}<h3 style="font-size:20px;margin-top:18px">Appointments</h3>${bk}<h3 style="font-size:20px;margin-top:18px">Savings plans</h3>${pl}`;
+    F.innerHTML='<button class="btn btn-ink full" id="reset">Clear demo data</button>';
+  }
+}
+$("#dBody").addEventListener("click",e=>{
+  const q=e.target.closest("[data-q]");if(q){const b=S.bag[+q.dataset.q];b.qty+=+q.dataset.d;if(b.qty<1)S.bag.splice(+q.dataset.q,1);save();counts();renderDrawer();return}
+  const r=e.target.closest("[data-rm]");if(r){S.bag.splice(+r.dataset.rm,1);save();counts();renderDrawer();return}
+  const w=e.target.closest("[data-wrm]");if(w){toggleWish(w.dataset.wrm);return}
+  const t=e.target.closest("[data-track]");if(t){info("track",t.dataset.track)}
+});
+$("#dFoot").addEventListener("click",e=>{
+  if(e.target.id==="toCheckout")checkout(1);
+  if(e.target.id==="shareWish"){const txt="My Aurélia Diamonds wish list:\n"+S.wish.map(byId).filter(Boolean).map(p=>"- "+p.name+", "+fmt(p.price)).join("\n");if(navigator.share){navigator.share({title:"My wish list",text:txt}).catch(()=>{})}else copy(txt,"Wish list copied")}
+  if(e.target.id==="reset"){S={bag:[],wish:[],orders:[],books:[],member:null,plans:[]};save();counts();renderGrid();renderClub();renderDrawer();toast("Demo data cleared")}
+});
+function copy(txt,ok){try{navigator.clipboard.writeText(txt).then(()=>toast(ok),()=>toast("Copy is not allowed here"))}catch(e){toast("Copy is not allowed here")}}
+
+/* shop grid */
+let F={cat:"all",dia:"all",sort:"pop"};
+function renderGrid(){
+  let L=P.filter(p=>(F.cat==="all"||p.cat===F.cat)&&(F.dia==="all"||(F.dia==="yes"?p.dia:!p.dia)));
+  L.sort((a,b)=>F.sort==="asc"?a.price-b.price:F.sort==="desc"?b.price-a.price:a.pop-b.pop);
+  $("#grid").innerHTML=L.length?L.map(p=>`<article class="card"><button class="ph" data-open="${p.id}" aria-label="View ${esc(p.name)}"><img src="img/${p.img}.jpg" alt="${esc(p.name)}" loading="lazy">${p.pop<=3?'<span class="tag">Most loved</span>':""}</button><button class="heart" data-wish="${p.id}" aria-pressed="${S.wish.includes(p.id)}" aria-label="Save ${esc(p.name)}" style="position:absolute;margin:0"><svg viewBox="0 0 24 24"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></svg></button><div class="bd"><h3>${esc(p.name)}</h3><span class="m">${CAT[p.cat]}, 18K ${p.metal} gold${p.dia?", diamonds":""}</span><span class="pr">${fmt(p.price)}</span><div class="row"><button class="btn btn-ink" data-open="${p.id}">Details</button><button class="btn btn-dark" data-quick="${p.id}">${p.cat==="ring"?"Choose size":"Add to bag"}</button></div></div></article>`).join(""):'<p class="empty">No piece matches these filters.</p>';
+}
+$("#chips").addEventListener("click",e=>{const c=e.target.closest(".chip");if(!c)return;setCat(c.dataset.f)});
+function setCat(c){F.cat=c;$$(".chip").forEach(x=>x.setAttribute("aria-pressed",x.dataset.f===c));renderGrid()}
+$("#fDia").addEventListener("change",e=>{F.dia=e.target.value;renderGrid()});
+$("#fSort").addEventListener("change",e=>{F.sort=e.target.value;renderGrid()});
+$$(".col").forEach(c=>c.addEventListener("click",()=>{setCat(c.dataset.cat);goto("shop")}));
+
+/* product modal */
+function product(id){
+  const p=byId(id);if(!p)return;
+  const sizes=Array.from({length:13},(_,i)=>48+i);
+  openModal(`<div class="pd"><img src="img/${p.img}.jpg" alt="${esc(p.name)}"><div><p class="note">${CAT[p.cat]}</p><h3>${esc(p.name)}</h3><p class="lead" style="margin-bottom:14px">${esc(p.d)}</p>
+  <div class="result" id="pPrice">${fmt(p.price)}</div><p class="note" style="margin-bottom:16px">or 3 x ${fmt(p.price/3)} with no fees</p>
+  <p class="note">Gold</p><div class="pills" id="pMetal" style="margin:6px 0 14px">${["yellow","rose","white"].map(m=>`<button class="pill" data-m="${m}" aria-pressed="${m===p.metal}">${m[0].toUpperCase()+m.slice(1)}</button>`).join("")}</div>
+  ${p.cat==="ring"?`<label class="note" for="pSize">Ring size</label><select id="pSize" style="margin:6px 0 14px"><option value="">Choose your size</option>${sizes.map(s=>`<option>${s}</option>`).join("")}</select><p class="err" id="pErr"></p>`:""}
+  <div class="form"><button class="btn btn-dark full" id="pAdd">Add to bag</button><div class="two"><button class="btn btn-ink" id="pWish">${S.wish.includes(p.id)?"Saved":"Save"}</button><button class="btn btn-ink" id="pTry">Try it on</button></div><button class="btn btn-ink full" id="pAsk">Ask a jeweller about it</button></div>
+  <p class="note" style="margin-top:12px">${p.dia?"Diamond certificate included. ":""}Insured delivery in a gift box.</p></div></div>`);
+  let metal=p.metal;
+  $("#pMetal").addEventListener("click",e=>{const b=e.target.closest(".pill");if(!b)return;metal=b.dataset.m;$$("#pMetal .pill").forEach(x=>x.setAttribute("aria-pressed",x===b))});
+  $("#pAdd").addEventListener("click",()=>{let desc="18K "+metal+" gold";if(p.cat==="ring"){const s=$("#pSize").value;if(!s){$("#pErr").textContent="Please choose a ring size. Not sure? Book a jeweller.";return}desc+=", size "+s}addBag({id:p.id,name:p.name,img:p.img,price:p.price,desc});closeAll()});
+  $("#pWish").addEventListener("click",e=>{toggleWish(p.id);e.target.textContent=S.wish.includes(p.id)?"Saved":"Save"});
+  $("#pTry").addEventListener("click",()=>tryOn(p.cat==="necklace"?"pendant":p.cat==="earring"?"stud":"ring",metal));
+  $("#pAsk").addEventListener("click",()=>{$("#bTopic").value=p.cat==="ring"?"Engagement ring":"A gift";goto("book");toast("Tell the jeweller you are interested in "+p.name)});
+}
+document.addEventListener("click",e=>{
+  const o=e.target.closest("[data-open]");if(o){product(o.dataset.open);return}
+  const w=e.target.closest("[data-wish]");if(w){toggleWish(w.dataset.wish);return}
+  const q=e.target.closest("[data-quick]");if(q){const p=byId(q.dataset.quick);if(p.cat==="ring")product(p.id);else addBag({id:p.id,name:p.name,img:p.img,price:p.price,desc:"18K "+p.metal+" gold"});return}
+  const g=e.target.closest("[data-goto]");if(g){goto(g.dataset.goto);return}
+  const i=e.target.closest("[data-info]");if(i){info(i.dataset.info);return}
+  const y=e.target.closest("[data-pay]");if(y){pay(y.dataset.pay)}
+});
+
+/* configurator */
+const base={"0.30":1650,"0.50":2450,"0.75":3900,"1.00":6200},mult={yellow:1,rose:1,white:1.08},shm={round:1,oval:1.04,pear:1.04,emerald:1.06},scl={"0.30":.8,"0.50":1,"0.75":1.2,"1.00":1.4},shx={round:[1,1],oval:[.82,1.12],pear:[.78,1.18],emerald:[.9,.95]};
+const sizeSel=$("#size");sizeSel.innerHTML=Array.from({length:13},(_,i)=>`<option${i===5?" selected":""}>${48+i}</option>`).join("");
+const val=n=>document.querySelector('input[name="'+n+'"]:checked').value;
+let cfg={};
+function update(){
+  const g=val("gold"),c=val("ct"),sh=val("sh"),s=sizeSel.value,en=$("#engr").value.trim();
+  const p=Math.round(base[c]*mult[g]*shm[sh]/10)*10;
+  cfg={g,c,sh,s,en,p};
+  $("#price").textContent=fmt(p);
+  $("#inst").textContent="or 3 x "+fmt(p/3)+" / 4 x "+fmt(p/4)+", no fees. 10 payments or a 30% deposit at checkout.";
+  const d="18K "+g+" gold, "+sh+" "+c+" ct diamond, size "+s+(en?", engraved “"+en+"”":"");
+  $("#desc").textContent=d+". Certificate included.";
+  $("#stageTxt").textContent="18K "+g+" gold, "+sh+" "+c+" ct";
+  $("#b1").setAttribute("stop-color",GOLDC[g][0]);$("#b2").setAttribute("stop-color",GOLDC[g][1]);
+  const k=scl[c],x=shx[sh];
+  $("#stone").setAttribute("transform","translate(150 "+(126-14*k)+") scale("+(k*x[0])+" "+(k*x[1])+")");
+  $("#eng").textContent=en;$("#msg").textContent="";
+}
+$("#f").addEventListener("change",update);$("#engr").addEventListener("input",update);$("#f").addEventListener("submit",e=>e.preventDefault());
+$("#add").addEventListener("click",()=>{addBag({id:"custom",name:"Your custom ring",img:"r1",price:cfg.p,desc:$("#desc").textContent.replace(". Certificate included.",""),custom:1});$("#msg").textContent="Added to bag. A 30% deposit is available at checkout for custom rings."});
+$("#cfgTry").addEventListener("click",()=>tryOn("ring",cfg.g));
+$("#cfgAsk").addEventListener("click",()=>{$("#bTopic").value="Custom design";goto("book")});
+update();
+
+/* try on */
+const J={
+ ring:c=>`<svg viewBox="0 0 100 100"><defs><linearGradient id="tg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${GOLDC[c][0]}"/><stop offset="1" stop-color="${GOLDC[c][1]}"/></linearGradient></defs><ellipse cx="50" cy="62" rx="30" ry="12" fill="none" stroke="url(#tg)" stroke-width="7"/><path d="M38 40 44 30h12l6 10-12 16z" fill="#EAF4FF" stroke="#8FB4D9"/></svg>`,
+ pendant:c=>`<svg viewBox="0 0 100 100"><path d="M10 4C20 50 80 50 90 4" fill="none" stroke="${GOLDC[c][1]}" stroke-width="2"/><circle cx="50" cy="58" r="12" fill="none" stroke="${GOLDC[c][0]}" stroke-width="4"/></svg>`,
+ stud:c=>`<svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="22" fill="${GOLDC[c][1]}"/><circle cx="50" cy="50" r="16" fill="#EAF4FF" stroke="#8FB4D9"/><path d="M38 50h24M50 38v24" stroke="#fff" stroke-width="1.5" opacity=".8"/></svg>`
+};
+function tryOn(kind,metal){
+  kind=kind||"ring";metal=metal||"yellow";
+  openModal(`<h3>Try it on</h3><p class="lead">Use your camera or a photo, then drag the jewel into place. Nothing is sent anywhere.</p>
+  <div class="tryarea" id="ta"><img id="taImg" src="img/tryon.jpg" alt="Your photo"><div class="jewel" id="jw" style="transform:translate(-50%,-50%)"></div></div>
+  <div class="form" style="margin-top:16px"><div class="two"><div><label for="taFile">Your photo</label><button type="button" class="btn btn-dark full" id="taCam" style="margin-bottom:8px">Use my camera</button><input type="file" id="taFile" accept="image/*"></div><div><label>Jewel</label><div class="pills" id="taKind">${["ring","pendant","stud"].map(k=>`<button class="pill" data-k="${k}" aria-pressed="${k===kind}">${k[0].toUpperCase()+k.slice(1)}</button>`).join("")}</div></div></div>
+  <div class="two"><div><label for="taSize">Size</label><input type="range" id="taSize" min="40" max="220" value="90" style="width:100%"></div><div><label for="taRot">Angle</label><input type="range" id="taRot" min="-90" max="90" value="0" style="width:100%"></div></div>
+  <div><label>Gold</label><div class="pills" id="taMetal">${["yellow","rose","white"].map(m=>`<button class="pill" data-m="${m}" aria-pressed="${m===metal}">${m[0].toUpperCase()+m.slice(1)}</button>`).join("")}</div></div>
+  <div class="two"><button class="btn btn-dark" id="taShop">Shop this look</button><button class="btn btn-ink" id="taAsk">Ask a jeweller</button></div></div>`);
+  const jw=$("#jw"),ta=$("#ta");let pos={x:.5,y:.5},drag=false;
+  const draw=()=>{jw.innerHTML=J[kind](metal);jw.style.width=$("#taSize").value+"px";jw.style.left=pos.x*100+"%";jw.style.top=pos.y*100+"%";jw.style.transform="translate(-50%,-50%) rotate("+$("#taRot").value+"deg)"};
+  draw();
+  jw.addEventListener("pointerdown",e=>{drag=true;jw.setPointerCapture(e.pointerId);jw.style.cursor="grabbing"});
+  jw.addEventListener("pointermove",e=>{if(!drag)return;const r=ta.getBoundingClientRect();pos.x=Math.min(1,Math.max(0,(e.clientX-r.left)/r.width));pos.y=Math.min(1,Math.max(0,(e.clientY-r.top)/r.height));draw()});
+  jw.addEventListener("pointerup",()=>{drag=false;jw.style.cursor="grab"});
+  $("#taSize").addEventListener("input",draw);$("#taRot").addEventListener("input",draw);
+  $("#taKind").addEventListener("click",e=>{const b=e.target.closest(".pill");if(!b)return;kind=b.dataset.k;$$("#taKind .pill").forEach(x=>x.setAttribute("aria-pressed",x===b));draw()});
+  $("#taMetal").addEventListener("click",e=>{const b=e.target.closest(".pill");if(!b)return;metal=b.dataset.m;$$("#taMetal .pill").forEach(x=>x.setAttribute("aria-pressed",x===b));draw()});
+  $("#taCam").addEventListener("click",async e=>{
+    const btn=e.currentTarget;
+    if(camStream){const v=$("#taVid");const cv=document.createElement("canvas");cv.width=v.videoWidth;cv.height=v.videoHeight;cv.getContext("2d").drawImage(v,0,0);$("#taImg").src=cv.toDataURL("image/jpeg",.9);v.remove();stopCam();btn.textContent="Retake";toast("Photo taken. Drag the jewel into place.");return}
+    if(!navigator.mediaDevices||!navigator.mediaDevices.getUserMedia){toast("Camera not available here, choose a photo instead");return}
+    try{camStream=await navigator.mediaDevices.getUserMedia({video:{facingMode:"environment"},audio:false});
+      const v=document.createElement("video");v.id="taVid";v.autoplay=true;v.playsInline=true;v.muted=true;v.srcObject=camStream;v.style.cssText="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;pointer-events:none";ta.insertBefore(v,jw);btn.textContent="Take photo"}
+    catch(err){toast("Camera access was refused, choose a photo instead")}
+  });
+  $("#taFile").addEventListener("change",e=>{const f=e.target.files[0];if(f){$("#taImg").src=URL.createObjectURL(f);toast("Photo loaded. Drag the jewel into place.")}});
+  $("#taShop").addEventListener("click",()=>{setCat(kind==="ring"?"ring":kind==="pendant"?"necklace":"earring");goto("shop")});
+  $("#taAsk").addEventListener("click",()=>goto("book"));
+}
+$("#tryBtn").addEventListener("click",()=>tryOn());
+
+/* info modals */
+function info(k,no){
+  if(k==="try"){tryOn();return}
+  if(k==="cert"){openModal(`<h3>Diamond certificate</h3><p class="lead">Every Aurélia diamond is graded by an independent laboratory. Your certificate is stored in your account. Sample shown below.</p><table><tr><td>Certificate number</td><td>AUR-2026-004871</td></tr><tr><td>Shape and cut</td><td>Round brilliant, excellent</td></tr><tr><td>Carat weight</td><td>0.50 ct</td></tr><tr><td>Colour</td><td>F</td></tr><tr><td>Clarity</td><td>VS1</td></tr><tr><td>Polish and symmetry</td><td>Excellent</td></tr><tr><td>Laser inscription</td><td>Yes, on the girdle</td></tr></table><p class="note" style="margin-top:12px">Sample values for the concept.</p><div class="cta" style="margin-top:18px"><button class="btn btn-dark" data-goto="shop">Shop diamond pieces</button></div>`);return}
+  if(k==="track"){
+    const last=no||(S.orders.length?S.orders[S.orders.length-1].no:"");
+    openModal(`<h3>Track a delivery</h3><p class="lead">Enter your order number to follow your jewel from the workshop to your door.</p><div class="form"><div class="two"><input type="text" id="trNo" placeholder="For example AUR-48213" value="${esc(last)}" aria-label="Order number"><button class="btn btn-dark" id="trGo">Track</button></div></div><div id="trOut"></div>`);
+    const go=()=>{const v=$("#trNo").value.trim();if(!v){$("#trOut").innerHTML='<p class="err">Please enter an order number.</p>';return}const known=S.orders.find(o=>o.no===v);const st=known?2:3;
+      $("#trOut").innerHTML=`<ol class="track">${["Order confirmed","Made and checked in our workshop","Packed in its gift box, insured","With the courier","Delivered, signature required"].map((t,i)=>`<li class="${i<st?"ok":""}">${t}</li>`).join("")}</ol><p class="note">${known?"Your order "+esc(v)+" is being prepared.":"Sample tracking for "+esc(v)+"."}</p>`};
+    $("#trGo").addEventListener("click",go);if(last)go();return}
+  if(k==="faq"){openModal(`<h3>Questions and answers</h3>${[["How do I find my ring size?","Book a free video call and a jeweller will guide you, or visit a boutique. Resizing is free within 30 days."],["Are your diamonds certified?","Yes. Each diamond comes with a certificate from an independent laboratory, stored in your account."],["Can I return a piece?","Yes, within 30 days, unworn and in its box. Custom and engraved pieces cannot be returned."],["How does paying in 3 or 4 times work?","Choose it at checkout from €150. The first payment is taken at order, the others each month, with no fees for you."],["Is the try-on safe?","Your photo stays in your browser. Nothing is uploaded."]].map(q=>`<details><summary>${q[0]}</summary><p>${q[1]}</p></details>`).join("")}`);return}
+  if(k==="ship"){openModal(`<h3>Delivery and returns</h3><table><tr><td>Insured delivery</td><td>€15, free for Gold Club</td></tr><tr><td>Ready to wear pieces</td><td>2 to 4 working days</td></tr><tr><td>Custom rings</td><td>3 to 5 weeks</td></tr><tr><td>Store pickup</td><td>Free</td></tr><tr><td>Returns</td><td>30 days, free</td></tr></table><p class="note" style="margin-top:12px">Every parcel needs a signature on delivery.</p>`);return}
+  if(k==="care"){openModal(`<h3>Jewellery care</h3><details open><summary>Everyday</summary><p>Take rings off before sport, cleaning or applying cream. Store each piece in its pouch.</p></details><details><summary>Cleaning at home</summary><p>Warm water, a drop of mild soap and a soft brush. Dry with a soft cloth.</p></details><details><summary>Yearly check-up</summary><p>We check the claws and polish your piece. Free once a year for Gold Club members.</p></details><div class="cta" style="margin-top:18px"><button class="btn btn-dark" id="careBook">Book a check-up</button></div>`);$("#careBook").addEventListener("click",()=>{$("#bTopic").value="Cleaning or repair";goto("book")});return}
+  if(k==="contact"){openModal(`<h3>Contact us</h3><p class="lead">Write to us and a jeweller will answer within one working day.</p><form class="form" id="ctf" novalidate><div class="two"><div><label for="cN">Name</label><input type="text" id="cN"></div><div><label for="cM">Email</label><input type="email" id="cM"></div></div><div><label for="cT">Message</label><textarea id="cT" rows="4"></textarea></div><p class="err" id="cE"></p><button class="btn btn-dark" type="submit">Send message</button></form>`);
+    $("#ctf").addEventListener("submit",e=>{e.preventDefault();if(!$("#cN").value.trim()||!/^\S+@\S+\.\S+$/.test($("#cM").value)||!$("#cT").value.trim()){$("#cE").textContent="Please fill in your name, a valid email and a message.";return}$("#mBody").innerHTML=`<h3>Message received</h3><p class="lead">Thank you ${esc($("#cN").value.trim())}. In this concept, no message is actually sent.</p><button class="btn btn-dark" data-close>Close</button>`});return}
+  if(k==="legal"){openModal(`<h3>About this concept</h3><p class="lead">Aurélia Diamonds is a concept website created for the "From Idea to App" assignment. Products, prices, boutiques and certificates are sample content. No order, payment or message is real.</p><p class="note">Team: Inass Aharchi, Aicha Rcham, Evan Mailloux. Photos from Unsplash, free to use under the Unsplash licence.</p>`)}
+}
+
+/* ways to pay */
+function pay(k){
+  const st=subtotal();const start=st||2450;
+  if(k==="p34"){openModal(`<h3>Pay in 3 or 4 times</h3><p class="lead">No fees for you, from €150. Enter an amount to see your payments.</p><div class="form"><label for="a">Amount</label><input type="number" id="a" min="150" value="${start}"><div id="o"></div></div>`);
+    const c=()=>{const v=+$("#a").value;$("#o").innerHTML=v<150?'<p class="err">Available from €150.</p>':`<div class="two"><div><p class="note">3 payments of</p><div class="result">${fmt(v/3)}</div></div><div><p class="note">4 payments of</p><div class="result">${fmt(v/4)}</div></div></div><p class="note">First payment today, then one each month. Total ${fmt(v)}.</p>`};$("#a").addEventListener("input",c);c();return}
+  if(k==="p10"){openModal(`<h3>Pay in 10 times</h3><p class="lead">For orders from €1,000, with a licensed financing partner. Credit is subject to approval.</p><div class="form"><label for="a">Amount</label><input type="number" id="a" min="1000" value="${Math.max(start,1000)}"><div id="o"></div></div>`);
+    const c=()=>{const v=+$("#a").value;$("#o").innerHTML=v<1000?'<p class="err">Available from €1,000.</p>':`<p class="note">10 monthly payments of about</p><div class="result">${fmt(v/10)}</div><p class="note">Before any partner fees. The exact rate and total cost are shown by our partner before you sign.</p>`};$("#a").addEventListener("input",c);c();return}
+  if(k==="save"){openModal(`<h3>Gold savings plan</h3><p class="lead">Choose how much to save each month. At the end, spend it on any piece.</p><div class="form"><label for="m">Each month: <b id="mv">€50</b></label><input type="range" id="m" min="20" max="300" step="10" value="50"><label>Length</label><div class="pills" id="len">${[6,12,24].map(n=>`<button class="pill" data-n="${n}" aria-pressed="${n===12}">${n} months</button>`).join("")}</div><p class="note">You will have saved</p><div class="result" id="tot"></div><button class="btn btn-dark" id="startPlan">Start my plan</button></div>`);
+    let n=12;const c=()=>{const m=+$("#m").value;$("#mv").textContent=fmt(m);$("#tot").textContent=fmt(m*n)};
+    $("#m").addEventListener("input",c);$("#len").addEventListener("click",e=>{const b=e.target.closest(".pill");if(!b)return;n=+b.dataset.n;$$("#len .pill").forEach(x=>x.setAttribute("aria-pressed",x===b));c()});c();
+    $("#startPlan").addEventListener("click",()=>{S.plans.push(fmt(+$("#m").value)+" a month for "+n+" months, "+fmt(+$("#m").value*n)+" in total");save();$("#mBody").innerHTML=`<h3>Your plan is ready</h3><p class="lead">${esc(S.plans[S.plans.length-1])}. You can follow it in your account.</p><button class="btn btn-dark" data-close>Close</button>`});return}
+  if(k==="dep"){openModal(`<h3>30% deposit</h3><p class="lead">For custom creations. Pay 30% to start the design, the rest when your piece is ready.</p><div class="form"><label for="a">Price of your creation</label><input type="number" id="a" min="500" value="${cfg.p||2450}"><div class="two"><div><p class="note">Today</p><div class="result" id="d1"></div></div><div><p class="note">At delivery</p><div class="result" id="d2"></div></div></div><div class="two"><a class="btn btn-dark" href="#create" data-close>Design my ring</a><button class="btn btn-ink" id="depAsk">Book a design call</button></div></div>`);
+    const c=()=>{const v=+$("#a").value||0;$("#d1").textContent=fmt(v*.3);$("#d2").textContent=fmt(v*.7)};$("#a").addEventListener("input",c);c();$("#depAsk").addEventListener("click",()=>{$("#bTopic").value="Custom design";goto("book")});return}
+  if(k==="trade"){openModal(`<h3>Old gold trade-in</h3><p class="lead">Get a first idea of what your old gold is worth. A jeweller confirms the value for free.</p><div class="form"><div class="two"><div><label for="w">Weight in grams</label><input type="number" id="w" min="0" step=".5" value="8"></div><div><label for="kt">Purity</label><select id="kt"><option value="9">9K</option><option value="14">14K</option><option value="18" selected>18K</option><option value="22">22K</option><option value="24">24K</option></select></div></div><p class="note">Estimated value</p><div class="result" id="tv"></div><p class="note">Sample rate of €80 per gram of pure gold, for the concept only. The real value depends on the gold price on the day.</p><button class="btn btn-dark" id="tBook">Book a free estimate</button></div>`);
+    const c=()=>{const w=+$("#w").value||0,kt=+$("#kt").value;$("#tv").textContent=fmt(w*kt/24*80)};$("#w").addEventListener("input",c);$("#kt").addEventListener("change",c);c();$("#tBook").addEventListener("click",()=>{$("#bTopic").value="Old gold trade-in";goto("book")});return}
+  if(k==="gift"){openModal(`<h3>Gift card</h3><p class="lead">Sent by email, valid for one year on every piece. Apple Pay and Google Pay are offered at checkout.</p><div class="form"><label>Amount</label><div class="pills" id="ga">${[50,100,250,500].map(v=>`<button class="pill" data-v="${v}" aria-pressed="${v===100}">€${v}</button>`).join("")}</div><div class="two"><div><label for="gTo">For</label><input type="text" id="gTo" placeholder="Their first name"></div><div><label for="gFrom">From</label><input type="text" id="gFrom" placeholder="Your first name"></div></div><div><label for="gMsg">Message</label><input type="text" id="gMsg" maxlength="80" placeholder="Happy birthday"></div><p class="err" id="gE"></p><button class="btn btn-dark" id="gAdd">Add gift card to bag</button></div>`);
+    let v=100;$("#ga").addEventListener("click",e=>{const b=e.target.closest(".pill");if(!b)return;v=+b.dataset.v;$$("#ga .pill").forEach(x=>x.setAttribute("aria-pressed",x===b))});
+    $("#gAdd").addEventListener("click",()=>{const to=$("#gTo").value.trim();if(!to){$("#gE").textContent="Please write who the gift is for.";return}addBag({id:"gift"+v,name:"Gift card €"+v,img:"",price:v,desc:"For "+to+($("#gFrom").value.trim()?", from "+$("#gFrom").value.trim():""),gift:1});closeAll()})}
+}
+
+/* checkout */
+let CO={};
+function checkout(step){
+  if(!S.bag.length){toast("Your bag is empty");return}
+  const st=subtotal(),sh=shipping(),tot=st+sh,custom=S.bag.some(b=>b.custom);
+  const steps=`<div class="steps">${["Delivery","Payment","Confirmation"].map((t,i)=>`<span class="${i+1===step?"on":""}">${i+1}. ${t}</span>`).join("")}</div>`;
+  if(step===1){openModal(`${steps}<h3>Delivery</h3><form class="form" id="co1" novalidate><div class="two"><div><label for="coN">Full name</label><input type="text" id="coN" autocomplete="name" value="${esc(CO.n||"")}"></div><div><label for="coE">Email</label><input type="email" id="coE" autocomplete="email" value="${esc(CO.e||"")}"></div></div>
+    <div><label>Delivery method</label><div class="pills" id="coM"><button type="button" class="pill" data-v="home" aria-pressed="${CO.m!=="store"}">Insured home delivery</button><button type="button" class="pill" data-v="store" aria-pressed="${CO.m==="store"}">Pick up in store, free</button></div></div>
+    <div id="coAddr"><div><label for="coA">Address</label><input type="text" id="coA" autocomplete="street-address" value="${esc(CO.a||"")}"></div><div class="two" style="margin-top:14px"><div><label for="coP">Postcode</label><input type="text" id="coP" autocomplete="postal-code" value="${esc(CO.p||"")}"></div><div><label for="coC">City</label><input type="text" id="coC" autocomplete="address-level2" value="${esc(CO.c||"")}"></div></div></div>
+    <p class="err" id="coErr"></p><button class="btn btn-dark" type="submit">Continue to payment</button></form>`);
+    let m=CO.m||"home";const sync=()=>{$("#coAddr").hidden=m==="store"};sync();
+    $("#coM").addEventListener("click",e=>{const b=e.target.closest(".pill");if(!b)return;m=b.dataset.v;$$("#coM .pill").forEach(x=>x.setAttribute("aria-pressed",x===b));sync()});
+    $("#co1").addEventListener("submit",e=>{e.preventDefault();const n=$("#coN").value.trim(),em=$("#coE").value.trim();
+      if(!n||!/^\S+@\S+\.\S+$/.test(em)){$("#coErr").textContent="Please enter your name and a valid email.";return}
+      if(m==="home"&&(!$("#coA").value.trim()||!$("#coP").value.trim()||!$("#coC").value.trim())){$("#coErr").textContent="Please complete your address.";return}
+      CO={n,e:em,m,a:$("#coA").value.trim(),p:$("#coP").value.trim(),c:$("#coC").value.trim()};checkout(2)});return}
+  if(step===2){
+    const t=CO.m==="store"?st:tot;
+    const plans=[["full","Pay in full",fmt(t)+" today",true],["p3","Pay in 3 times","3 x "+fmt(t/3)+", no fees",t>=150],["p4","Pay in 4 times","4 x "+fmt(t/4)+", no fees",t>=150],["p10","Pay in 10 times","about 10 x "+fmt(t/10)+", subject to approval",t>=1000],["dep","30% deposit",fmt(t*.3)+" today, "+fmt(t*.7)+" at delivery",custom]].filter(x=>x[3]);
+    openModal(`${steps}<h3>Payment</h3><div class="form"><label>Plan</label><div style="display:grid;gap:8px" id="coPl">${plans.map((x,i)=>`<button type="button" class="plan" data-v="${x[0]}" aria-pressed="${i===0}"><span>${x[1]}</span><small>${x[2]}</small></button>`).join("")}</div>
+    <label>Method</label><div class="pills" id="coPm">${["Card","Apple Pay","Google Pay","PayPal"].map((x,i)=>`<button type="button" class="pill" data-v="${x}" aria-pressed="${i===0}">${x}</button>`).join("")}</div>
+    <table style="margin-top:6px"><tr><td>Subtotal</td><td>${fmt(st)}</td></tr><tr><td>Delivery</td><td>${CO.m==="store"||!sh?"Free":fmt(sh)}</td></tr><tr><td><b>Total</b></td><td><b>${fmt(t)}</b></td></tr></table>
+    <p class="note">Concept checkout. No card details are asked and no payment is taken.</p><div class="two"><button class="btn btn-ink" id="coBack">Back</button><button class="btn btn-dark" id="coPay">Place order</button></div></div>`);
+    let pl=plans[0],pm="Card";
+    $("#coPl").addEventListener("click",e=>{const b=e.target.closest(".plan");if(!b)return;pl=plans.find(x=>x[0]===b.dataset.v);$$("#coPl .plan").forEach(x=>x.setAttribute("aria-pressed",x===b))});
+    $("#coPm").addEventListener("click",e=>{const b=e.target.closest(".pill");if(!b)return;pm=b.dataset.v;$$("#coPm .pill").forEach(x=>x.setAttribute("aria-pressed",x===b))});
+    $("#coBack").addEventListener("click",()=>checkout(1));
+    $("#coPay").addEventListener("click",()=>{const no="AUR-"+Math.floor(10000+Math.random()*89999);const d=new Date();
+      S.orders.push({no,total:t,plan:pl[1]+", "+pm,date:d.toLocaleDateString("en-GB",{day:"numeric",month:"long",year:"numeric"}),items:S.bag.reduce((a,b)=>a+b.qty,0)});
+      S.bag=[];save();counts();CO.no=no;CO.pl=pl;CO.t=t;confirmOrder()});return}
+}
+function confirmOrder(){
+  openModal(`<div class="steps"><span>1. Delivery</span><span>2. Payment</span><span class="on">3. Confirmation</span></div><h3>Thank you, ${esc(CO.n)}</h3><p class="lead">Order ${esc(CO.no)} is confirmed. ${CO.m==="store"?"We will email you when it is ready in store.":"It will travel insured to "+esc(CO.c)+"."}</p><table><tr><td>Plan</td><td>${esc(CO.pl[1])}</td></tr><tr><td>Paid today</td><td>${fmt(CO.pl[0]==="p3"?CO.t/3:CO.pl[0]==="p4"?CO.t/4:CO.pl[0]==="p10"?CO.t/10:CO.pl[0]==="dep"?CO.t*.3:CO.t)}</td></tr><tr><td>Total</td><td>${fmt(CO.t)}</td></tr></table><div class="two" style="margin-top:20px"><button class="btn btn-dark" id="ocTrack">Track my order</button><button class="btn btn-ink" data-close>Continue shopping</button></div>`);
+  $("#ocTrack").addEventListener("click",()=>info("track",CO.no));
+}
+
+/* club */
+let plan="yearly";
+function renderClub(){$$(".plan[data-plan]").forEach(b=>b.setAttribute("aria-pressed",b.dataset.plan===plan));const j=$("#join");if(S.member){j.textContent="You are a Gold Club member";j.disabled=true}else{j.textContent="Join Gold Club";j.disabled=false}}
+$("#plans").addEventListener("click",e=>{const b=e.target.closest(".plan");if(!b)return;plan=b.dataset.plan;renderClub()});
+$("#join").addEventListener("click",()=>{
+  openModal(`<h3>Join Gold Club</h3><p class="lead">${plan==="yearly"?"Yearly plan, €99 a year, two months free.":"Monthly plan, €9.90 a month, cancel any time."}</p><form class="form" id="jf" novalidate><div class="two"><div><label for="jN">First name</label><input type="text" id="jN"></div><div><label for="jM">Email</label><input type="email" id="jM"></div></div><label style="display:flex;gap:10px;align-items:center;color:var(--ink)"><input type="checkbox" id="jC" style="width:20px;height:20px"> I accept the club terms</label><p class="err" id="jE"></p><button class="btn btn-dark" type="submit">Confirm membership</button><p class="note">Concept only, nothing is charged.</p></form>`);
+  $("#jf").addEventListener("submit",e=>{e.preventDefault();const n=$("#jN").value.trim();if(!n||!/^\S+@\S+\.\S+$/.test($("#jM").value)){$("#jE").textContent="Please enter your first name and a valid email.";return}if(!$("#jC").checked){$("#jE").textContent="Please accept the club terms.";return}
+    S.member={name:n,plan};save();renderClub();$("#mBody").innerHTML=`<h3>Welcome to Gold Club, ${esc(n)}</h3><p class="lead">Free insured shipping now applies to your bag. Your yearly cleaning can be booked any time.</p><div class="two"><button class="btn btn-dark" data-goto="shop">Shop now</button><button class="btn btn-ink" data-close>Close</button></div>`});
+});
+renderClub();
+
+/* booking */
+const bk={type:"Video call",day:null,time:null};
+const days=Array.from({length:7},(_,i)=>{const d=new Date();d.setDate(d.getDate()+i+1);return d});
+$("#bDays").innerHTML=days.map((d,i)=>`<button type="button" class="slot" data-i="${i}" aria-pressed="false">${d.toLocaleDateString("en-GB",{weekday:"short",day:"numeric",month:"short"})}</button>`).join("");
+const times=["10:00","10:40","11:20","12:00","14:00","14:40","15:20","16:00","16:40","17:20","18:00"];
+function renderTimes(){if(bk.day===null){$("#bTimes").innerHTML='<span class="fine">Choose a day first.</span>';return}
+  $("#bTimes").innerHTML=times.map((t,i)=>{const busy=(i*7+bk.day*3)%5===0;return`<button type="button" class="slot" data-t="${t}" ${busy?"disabled":""} aria-pressed="${bk.time===t}">${t}</button>`}).join("")}
+renderTimes();
+$("#bType").addEventListener("click",e=>{const b=e.target.closest(".slot");if(!b)return;bk.type=b.dataset.v;$$("#bType .slot").forEach(x=>x.setAttribute("aria-pressed",x===b));$("#storeRow").hidden=bk.type!=="In store"});
+$("#bDays").addEventListener("click",e=>{const b=e.target.closest(".slot");if(!b)return;bk.day=+b.dataset.i;bk.time=null;$$("#bDays .slot").forEach(x=>x.setAttribute("aria-pressed",x===b));renderTimes()});
+$("#bTimes").addEventListener("click",e=>{const b=e.target.closest(".slot");if(!b||b.disabled)return;bk.time=b.dataset.t;$$("#bTimes .slot").forEach(x=>x.setAttribute("aria-pressed",x===b))});
+$("#bf").addEventListener("submit",e=>{e.preventDefault();const n=$("#bName").value.trim(),m=$("#bMail").value.trim();
+  if(bk.day===null||!bk.time){$("#bErr").textContent="Please choose a day and a time.";return}
+  if(!n||!/^\S+@\S+\.\S+$/.test(m)){$("#bErr").textContent="Please enter your name and a valid email.";return}
+  const r={type:bk.type,day:days[bk.day].toLocaleDateString("en-GB",{weekday:"long",day:"numeric",month:"long"}),time:bk.time,topic:$("#bTopic").value,store:bk.type==="In store"?$("#bStore").value:"",name:n};
+  S.books.push(r);save();
+  $("#bookBox").innerHTML=`<div class="done"><h3 style="font-size:28px;margin-bottom:8px">See you soon, ${esc(n)}</h3><p style="color:#CFC5AF;margin-bottom:16px">${esc(r.type)} on ${esc(r.day)} at ${esc(r.time)}${r.store?", "+esc(r.store):""}. Topic: ${esc(r.topic)}. ${r.type==="Video call"?"The video link will be sent to "+esc(m)+".":""}</p><div class="cta"><button class="btn btn-gold" id="bCopy">Copy the details</button><button class="btn btn-line" id="bNew">Book another time</button></div><p class="fine" style="margin-top:12px">Concept only, no email is sent.</p></div>`;
+  $("#bCopy").addEventListener("click",()=>copy("Aurélia Diamonds appointment: "+r.type+", "+r.day+" at "+r.time+(r.store?", "+r.store:"")+". Topic: "+r.topic,"Details copied"));
+  $("#bNew").addEventListener("click",()=>location.reload());
+});
+
+/* header */
+$("#bBag").addEventListener("click",()=>openDrawer("bag"));
+$("#bWish").addEventListener("click",()=>openDrawer("wish"));
+$("#bAcc").addEventListener("click",()=>openDrawer("acc"));
+$("#bMenu").addEventListener("click",e=>{const l=$("#links");l.classList.toggle("open");e.currentTarget.setAttribute("aria-expanded",l.classList.contains("open"))});
+$$("#links a").forEach(a=>a.addEventListener("click",()=>$("#links").classList.remove("open")));
+$("#bSearch").addEventListener("click",()=>{
+  openModal(`<h3>Search</h3><input type="text" id="q" placeholder="Try ring, rose, pendant, studs" aria-label="Search"><div id="qr" style="margin-top:14px"></div>`);
+  const r=()=>{const v=$("#q").value.trim().toLowerCase();const L=v?P.filter(p=>(p.name+" "+CAT[p.cat]+" "+p.cat+" "+p.metal+" "+p.d).toLowerCase().includes(v)):P.slice(0,4);
+    $("#qr").innerHTML=L.length?L.map(p=>`<button class="line" data-open="${p.id}" style="width:100%;text-align:left"><img src="img/${p.img}.jpg" alt=""><div><b>${esc(p.name)}</b><small>${CAT[p.cat]}, 18K ${p.metal} gold</small></div><span>${fmt(p.price)}</span></button>`).join(""):'<p class="empty">No piece found. Try another word or ask a jeweller.</p>'};
+  $("#q").addEventListener("input",r);r()});
+
+/* app shell */
+const tabs=$$(".tabbar button");
+tabs.forEach(t=>t.addEventListener("click",()=>{const k=t.dataset.tab;if(k==="bag"){openDrawer("bag");return}closeAll();if(k==="top")window.scrollTo({top:0,behavior:"smooth"});else document.getElementById(k).scrollIntoView({behavior:"smooth"})}));
+const secs=["top","shop","create","book"].map(id=>document.getElementById(id));
+const spy=()=>{let cur="top";secs.forEach(sc=>{if(sc.getBoundingClientRect().top<window.innerHeight*.4)cur=sc.id});tabs.forEach(t=>t.classList.toggle("on",t.dataset.tab===cur))};
+window.addEventListener("scroll",spy,{passive:true});
+let deferred=null;
+window.addEventListener("beforeinstallprompt",e=>{e.preventDefault();deferred=e;$("#install").hidden=false});
+$("#install").addEventListener("click",async()=>{if(!deferred)return;deferred.prompt();const r=await deferred.userChoice;deferred=null;$("#install").hidden=true;if(r.outcome==="accepted")toast("Aurélia is now on your home screen")});
+window.addEventListener("appinstalled",()=>{$("#install").hidden=true});
+if("serviceWorker" in navigator){window.addEventListener("load",()=>navigator.serviceWorker.register("sw.js").catch(()=>{}))}
+if(location.hash){const t=document.getElementById(location.hash.slice(1));if(t)setTimeout(()=>t.scrollIntoView(),300)}
+renderGrid();counts();
+}
+</script>
+</body>
+</html>
