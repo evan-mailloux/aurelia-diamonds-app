@@ -9,7 +9,7 @@ Live app: https://evan-mailloux.github.io/aurelia-diamonds-app/
 
 A Progressive Web App built from the Aurélia Diamonds concept website.
 Same content, same prices, same brand, same flows as the website.
-On Android it installs from Chrome, gets its own icon, opens full screen like YouTube and works offline.
+On Android it installs from Chrome, on iPhone from Safari, gets its own icon, opens full screen like YouTube and works offline.
 It is a demo: no real payment, order, message or email is ever sent.
 
 ## 2. Install it on an Android phone
@@ -20,7 +20,14 @@ It is a demo: no real payment, order, message or email is ever sent.
 4. Open it from the icon. It launches full screen, without the browser bar.
 5. Long-press the icon to see the shortcuts: Shop, Create your ring, Book a jeweller.
 
-## 3. What the app does
+## 3. Install it on an iPhone
+
+1. Open the live app link in Safari.
+2. Tap "Install the app" to see the steps, or tap the Share button directly.
+3. Tap "Add to Home Screen", then "Add".
+4. Open Aurélia from its icon. It launches full screen.
+
+## 4. What the app does
 
 1. Home with the hero ring, collections and trust promises.
 2. Shop of 23 pieces with filters, sorting, wish list and product pages.
@@ -34,7 +41,7 @@ It is a demo: no real payment, order, message or email is ever sent.
 
 Data stays on the phone, in the browser's local storage. "Clear demo data" in My account resets it.
 
-## 4. Files
+## 5. Files
 
 | File | Role |
 |---|---|
@@ -44,7 +51,7 @@ Data stays on the phone, in the browser's local storage. "Clear demo data" in My
 | icons/ | App icons, 192 and 512 px, plus a maskable version |
 | img/ | Jewellery photos from Unsplash, free to use |
 
-## 5. How to change something
+## 6. How to change something
 
 1. Edit index.html, for example a product in the `P` list near the top of the script.
 2. If you add or rename an image, add it to the `FILES` list in sw.js.
@@ -52,7 +59,7 @@ Data stays on the phone, in the browser's local storage. "Clear demo data" in My
 4. Commit and push to the `main` branch. GitHub Pages updates the live app in about one minute.
 5. On the phone, close the app and open it again, twice if needed.
 
-## 6. Prompt to continue in Claude Code
+## 7. Prompt to continue in Claude Code
 
 Copy this prompt into Claude Code, opened on this repository:
 
@@ -70,7 +77,7 @@ Rules:
 Task: [describe the change here]
 ```
 
-## 7. Optional: a real APK file
+## 8. Optional: a real APK file
 
 The app can also be packaged as an Android APK from its live link with PWABuilder, at https://www.pwabuilder.com.
 Paste the live app link, choose Android, and download the package.

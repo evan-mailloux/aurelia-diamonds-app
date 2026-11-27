@@ -891,6 +891,10 @@ let deferred=null;
 window.addEventListener("beforeinstallprompt",e=>{e.preventDefault();deferred=e;$("#install").hidden=false});
 $("#install").addEventListener("click",async()=>{if(!deferred)return;deferred.prompt();const r=await deferred.userChoice;deferred=null;$("#install").hidden=true;if(r.outcome==="accepted")toast("Aurélia is now on your home screen")});
 window.addEventListener("appinstalled",()=>{$("#install").hidden=true});
+const isIOS=/iphone|ipad|ipod/i.test(navigator.userAgent)||(navigator.platform==="MacIntel"&&navigator.maxTouchPoints>1);
+const standalone=window.matchMedia("(display-mode: standalone)").matches||navigator.standalone===true;
+if(isIOS&&!standalone){$("#install").hidden=false}
+$("#install").addEventListener("click",()=>{if(deferred||!isIOS)return;openModal(`<h3>Install on iPhone</h3><p class="lead">Three taps and Aurélia opens full screen from your home screen.</p><ol style="padding-left:20px;display:grid;gap:10px"><li>Open this page in <b>Safari</b>.</li><li>Tap the <b>Share</b> button, the square with an arrow pointing up.</li><li>Scroll and tap <b>Add to Home Screen</b>, then <b>Add</b>.</li></ol><p class="note" style="margin-top:14px">Then open Aurélia from its icon.</p><button class="btn btn-dark" data-close style="margin-top:16px">Got it</button>`)});
 if("serviceWorker" in navigator){window.addEventListener("load",()=>navigator.serviceWorker.register("sw.js").catch(()=>{}))}
 if(location.hash){const t=document.getElementById(location.hash.slice(1));if(t)setTimeout(()=>t.scrollIntoView(),300)}
 renderGrid();counts();
